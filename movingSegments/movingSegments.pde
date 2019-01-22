@@ -7,12 +7,13 @@ int $gridWidthArrayIndex = 1;
 int $gridWidth = $gridWidthArray[$gridWidthArrayIndex]; //10, 20, 30, 50 for(600,600) canvas size
 boolean $grid = true;
 boolean $debug = false;
+boolean $anime = true;
 boolean $animating = false;
 int $fRate = 40; // 40 seems to be smoothest for animation
 int $strokeWeight = 3;
 int $borderWidth = 100;
 int $cols, $rows;
-
+int numbah;
 Director director; // create a Director object to handle interactions between elements
 
 // Helper Methods
@@ -48,51 +49,27 @@ void setup() {
   smooth(8);
 
   calculateProperties();
-
+  
   if ($grid) { drawGrid($gridWidth); };
 
   director = new Director(); 
+
 }
 
 // Test segments to show how $animating works
-Segment t1 = new Segment($gridWidth, $gridWidth);
-Segment t2 = new Segment($gridWidth*2, $gridWidth);
-Segment t3 = new Segment($gridWidth*3, $gridWidth);
 
 // used in demo animation
-float i = 0;
-float delta = .05;
+
 
 
 // Draw
 // *************************************************************************************************
 void draw() {
-  
-  // This is where you can start with building your animation code
-  // This does not involve easing (read about it: https://processing.org/examples/easing.html)
-  // and as such, its pretty clunky. You'll likely want to build a new
-  // animation algorithm
-  if($animating) {
-    background(255);
-    if ($grid) { drawGrid($gridWidth); };
-    
-    i += delta;
-    if(i > PI/2) {
-     i = PI/2; 
-     delta = -1*delta; // make it negative if it gets to the "end"
-    }
-    if (i<= 0) {
-      i = 0;
-      delta = -1*delta;
-    }
-    
-    t1.setCurrentAngle(i);
-    t1.showCurrent();
-
-    t2.setCurrentAngle(i);
-    t2.showCurrent();
-   
-    t3.setCurrentAngle(i);
-    t3.showCurrent();
+  if($animating == true && $anime){
+    director.Animate();
   }
+  
+  
+  
+  
 }

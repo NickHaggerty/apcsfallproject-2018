@@ -74,7 +74,7 @@ $animating
 *Saves the current frame to disk as "#####.png"*
 
 **Press the 'a' Key**
-*Shows a demo animation. It's gross, but it gives you an idea of how segment data can be used to change state and control animation.*
+*Turns animation of the lines on and off.*
 
 ## Built with Processing.java
 Get version [3.4](https://processing.org/download/)
@@ -333,6 +333,10 @@ void showSegments(String s)
 
 // call shiftPatterns() then show "start"
 void showNext()
+
+//displays each frame in the animation of the pattern
+void Animate()
+
 ```
 
 ## RA AP Computer Science Fall Project Expectations

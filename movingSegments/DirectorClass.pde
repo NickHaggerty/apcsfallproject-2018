@@ -48,6 +48,7 @@ class Director
   // methods
   // *************************************************************************************************
   
+  //ANIMATION CONTROL
   String getShowing() {
     return showing;
   }
@@ -55,7 +56,8 @@ class Director
   void setShowing(String s) {
     showing = s;
   }
-  
+  //ANIMATION CONTROL
+ 
   // pattern methods
   // *************************************************************************************************
     // append new pattern
@@ -94,9 +96,11 @@ class Director
           for(int col = 0; col<$cols; col++) {
             int index = col + (row*$cols);
             if(pat.get(index) == 1) { // learning right
+              
               segments.get(index).setStartAngle(true);
               segments.get(index).setCurrentAngle(true);
             } else { // leaning left
+              
               segments.get(index).setStartAngle(false);
               segments.get(index).setCurrentAngle(false);
             }
@@ -110,7 +114,7 @@ class Director
         for(int row = 0; row<$rows; row++) {
           for(int col = 0; col<$cols; col++) {
             int index = col + (row*$cols);
-            if(pat.get(index) == 1) { // learning right
+            if(pat.get(index) == 1) { // leaning right
               segments.get(index).setEndAngle(true);
             } else { // leaning left
               segments.get(index).setEndAngle(false);
@@ -133,13 +137,14 @@ class Director
     translate($borderWidth,$borderWidth);
     for (int i = 0; i<$cols*$rows; i++) {
       if (s == "start") {
+        
         segments.get(i).showStart();
         showing = "start";
         //if ($debug) { println("showing start"); }
       } else if (s == "current") {
-         segments.get(i).showCurrent();
+        segments.get(i).showCurrent();
          showing = "current";
-         //if ($debug) { println("showing start"); }
+         //if ($debug) { println("showing current"); }
       } else {
         segments.get(i).showEnd();
         showing = "end";
@@ -149,6 +154,8 @@ class Director
     popMatrix();
   }
   
+ 
+  
   void showSegments(String s) {
     pushMatrix();
     translate($borderWidth,$borderWidth);
@@ -157,7 +164,7 @@ class Director
         segments.get(i).showStart();
         showing = "start";
       } else if (s == "current") {
-         segments.get(i).showCurrent();
+        segments.get(i).showCurrent();
          showing = "current";
       } else {
         segments.get(i).showEnd();
@@ -171,12 +178,77 @@ class Director
   void showNext() {
     shiftPatterns(); // go to the next pattern
     pushMatrix();
-    translate($borderWidth,$borderWidth);
-    for (int i = 0; i<$cols*$rows; i++) {
+     translate($borderWidth,$borderWidth);
+   if(!$anime){
+   for (int i = 0; i<$cols*$rows; i++) {
         segments.get(i).showStart();
         showing = "start";
     }
-    popMatrix();
-  }
+   }else{
+   
+   popMatrix();
+    $animating = true;
+   }
+ //  for (int i = 0; i<$cols*$rows; i++){
+ //  //if(segments.get(i).getCurrentAngle() != segments.get(i).getEndAngle()){
+ //    $animating = true;
+ //     //}
+ //  }
+ //  $animating = false;
+ }
+   
     
+  
+    
+
+
+void Animate(){
+  
+  //set background and grid
+  background(255);
+    if ($grid) { drawGrid($gridWidth); };
+  //go through each segments
+  for (int i = 0; i<$cols*$rows; i++) {
+    //set A to the angle of current segment
+    float A = segments.get(i).getCurrentAngle();
+    
+    //if angle is past right, go the other way
+  if(A >=  segments.get(i).getEndAngle()) { 
+    A -= .05;
+    }
+    //if angle is past left, go the other way
+    if (A <=  segments.get(i).getEndAngle()) {
+      A += .05;
+    }
+    //set angle to A
+  segments.get(i).setCurrentAngle(A);
+  
 }
+
+  showSegments("current");
+ 
+ }
+
+ 
+}
+  //this runs the code the amount of times it takes for 0 to equal 1.57 (PI/2) adding .1 to zero each run.
+ //for(float x = 0; x < PI/2; x += .1){
+ //     //draws grid each frame 
+ //     drawGrid($gridWidth);
+ //     showSegments("current");
+ //     pushMatrix();
+ //     translate($borderWidth,$borderWidth);
+ //     //runs each seperate line 
+ //     for (int i = 0; i<$cols*$rows; i++) {
+ //      //add's .1 to each lines rotation
+ //       float CAngle = Animation(segments.get(i).getCurrentAngle(),segments.get(i).getEndAngle());
+ //     //sets segments angle
+ //      segments.get(i).setCurrentAngle(CAngle);
+ //      //draws line
+ //      segments.get(i).showCurrent();
+ //        //sets showing
+       
+ //     }
+ //    popMatrix();
+ //    showing = "current";
+ //

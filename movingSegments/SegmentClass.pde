@@ -29,6 +29,8 @@ class Segment
   
   // Getters
   // *************************************************************************************************
+  
+  //ANIMATE
   float getStartAngle() {  
     return this.startAngle;  
   }
@@ -40,6 +42,8 @@ class Segment
    float getCurrentAngle() {
     return this.currentAngle;  
   }
+  //ANIMATE
+  
   
   // Deprecated
   //int getStartAngleBool() {
@@ -66,6 +70,8 @@ class Segment
   
   // Setters
   // *************************************************************************************************
+    
+    //ANIMATE
     void setCurrentAngle(float a) {
       currentAngle = a;
     }
@@ -102,7 +108,7 @@ class Segment
        startAngle = PI/2; // right 
       }
     }
-    
+    //ANIMATE
 
     // Display methods
     // *************************************************************************************************
@@ -122,7 +128,30 @@ class Segment
       }
     }
     
+    // During the animation phase the Animate() method can be
+// used to display the segment while it is in transition from
+// its startAngle to its endAngle
+    
+    // void showCurrent(float c) {
+    //  currentAngle = c;
+    //  // System.out.println("got here");
+    //  float l = getLength(currentAngle);
+    //  float k = (segmentLength/sqrt(2));
+    //  float p = round((l*k)/2);
+    //  pushMatrix();
+    //  translate(center.x,center.y); // move to center + 1/2 line length
+    //  rotate(currentAngle);
+    //  line(-p,-p,p,p);
+    //  popMatrix();
+    //  if($debug) {
+    //    fill(255,0,0);
+    //    ellipse(center.x,center.y,5,5);
+    //  }
+    //}
+    
      void showCurrent() {
+       //background(255);
+       //System.out.println("got here");
       float l = getLength(currentAngle);
       float k = (segmentLength/sqrt(2));
       float p = round((l*k)/2);
